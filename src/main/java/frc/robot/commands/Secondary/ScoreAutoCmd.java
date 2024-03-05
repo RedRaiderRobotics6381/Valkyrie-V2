@@ -19,9 +19,9 @@ import frc.robot.subsystems.Secondary.LauncherSubsystem;
 public class ScoreAutoCmd extends Command {
   /** Creates a new Outtake. */
   
-    private final LauncherSubsystem launcherSubsystem;
-    private final IntakeSubsystem intakeSubsystem;
-    private final LauncherRotateSubsystem launcherRotateSubsystem;
+    private LauncherSubsystem launcherSubsystem;
+    private IntakeSubsystem intakeSubsystem;
+    private LauncherRotateSubsystem launcherRotateSubsystem;
     private boolean hasNote = true;
   
   

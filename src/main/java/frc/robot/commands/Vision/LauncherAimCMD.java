@@ -1,13 +1,15 @@
 package frc.robot.commands.Vision;
 
 import org.photonvision.targeting.PhotonTrackedTarget;
+
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.AprilTagConstants;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.commands.Secondary.LauncherRotateCmd;
-import frc.robot.subsystems.Secondary.LEDsSubSystem;
 import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 import edu.wpi.first.math.MathUtil;
 
@@ -61,8 +63,8 @@ public class LauncherAimCMD extends Command
             var target = targetOpt.get();
             // This is new target data, so recalculate the goal
             lastTarget = target;
-            double targetX = target.getBestCameraToTarget().getX();
-            Double targetY = target.getBestCameraToTarget().getY();
+            double targetX = target.getBestCameraToTarget().getX() - 0.233; //0.233 is the offset from the plane of the april tag to the center of the speaker opening.
+            Double targetY = target.getBestCameraToTarget().getY() + 0.306; //0.306 is the offset from theplane of the camera to the center of rotation of the arm
             Double LAUNCHER_TO_TOWER = Math.sqrt(Math.pow(targetX, 2) + Math.pow(targetY, 2));
             //Double LAUNCHER_TO_TOWER = target.getBestCameraToTarget().getX();
             LauncherConstants.LauncherSpeedMult = (int)MathUtil.clamp(LAUNCHER_TO_TOWER * LauncherConstants.kAutoScoreSpeed,
@@ -78,7 +80,9 @@ public class LauncherAimCMD extends Command
 
             if (LAUNCHER_TO_TOWER <= 5){ 
               if (target.getYaw() >= -2  || target.getYaw() <=2){
-                LEDsSubSystem.setLEDwBlink(.73,.125);
+                //LEDsSubSystem.setLEDwBlink(.73,.125);
+                RobotContainer.driverXbox.setRumble(RumbleType.kBothRumble, 0.25);
+                RobotContainer.engineerXbox.setRumble(RumbleType.kBothRumble, 0.25);
               }
             }
           }
@@ -118,5 +122,7 @@ public class LauncherAimCMD extends Command
   public void end(boolean interrupted)
   {
     //launcherSubsystem.LauncherCmd(0);
+    RobotContainer.driverXbox.setRumble(RumbleType.kBothRumble, 0);
+    RobotContainer.engineerXbox.setRumble(RumbleType.kBothRumble, 0);
   }
 }

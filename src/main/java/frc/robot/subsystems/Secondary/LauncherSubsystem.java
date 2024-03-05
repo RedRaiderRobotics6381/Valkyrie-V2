@@ -97,7 +97,7 @@ public class LauncherSubsystem extends SubsystemBase {
     }
     
     public double getLauncherSpeed(){
-        double launcherSpeed = (int)encoderTop.getVelocity();
+        double launcherSpeed = encoderTop.getVelocity();//(int)encoderTop.getVelocity();
         return launcherSpeed;
       }
   

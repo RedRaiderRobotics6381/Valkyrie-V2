@@ -13,7 +13,7 @@ import frc.robot.subsystems.Secondary.LEDsSubSystem;
 public class OuttakeCmd extends Command {
 
   private boolean hasNote = true;
-  private final IntakeSubsystem intakeSubsystem;
+  private IntakeSubsystem intakeSubsystem;
   
   public OuttakeCmd(IntakeSubsystem intakeSubsystem){
     // Use addRequirements() here to declare subsystem dependencies.

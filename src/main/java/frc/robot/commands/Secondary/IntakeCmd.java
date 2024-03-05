@@ -15,8 +15,8 @@ import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 public class IntakeCmd extends Command {
 
   private boolean hasNote = false;
-  private final LauncherRotateSubsystem launcherRotateSubsystem;
-  private final IntakeSubsystem intakeSubsystem;
+  private LauncherRotateSubsystem launcherRotateSubsystem;
+  private IntakeSubsystem intakeSubsystem;
   
   public IntakeCmd(IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
@@ -48,7 +48,7 @@ public class IntakeCmd extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    LEDsSubSystem.setLED(.71);
+    LEDsSubSystem.setLED(.91);
     intakeSubsystem.indexerMotor.set(IntakeConstants.zeroSpeed);
     intakeSubsystem.intakeMotor.set(IntakeConstants.zeroSpeed);
     intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.zeroSpeed);

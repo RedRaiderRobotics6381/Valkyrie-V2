@@ -206,7 +206,7 @@ public class RobotContainer
    // new JoystickButton(engineerXbox, 4).onTrue(new  IntakeCmd(intakeSubsystem, launcherRotateSubsystem));
     
     
-    new JoystickButton(engineerXbox, 5).onTrue(new IntakeCmd(intakeSubsystem, launcherRotateSubsystem));
+    new JoystickButton(engineerXbox, 5).whileTrue(new IntakeCmd(intakeSubsystem, launcherRotateSubsystem));
     
     
     new POVButton(engineerXbox, 0).onTrue(new ClimbCmd(climberSubsystem));

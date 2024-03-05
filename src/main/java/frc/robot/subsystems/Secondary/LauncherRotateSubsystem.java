@@ -38,7 +38,7 @@ public class LauncherRotateSubsystem extends SubsystemBase {
         m_LauncherRotateMotor.restoreFactoryDefaults();  //Remove this when we remove the burnFlash() call below
         m_LauncherRotateEncoder = m_LauncherRotateMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
         m_LauncherRotateEncoder.setPositionConversionFactor(360);
-        m_LauncherRotateEncoder.setZeroOffset(333.9);
+        m_LauncherRotateEncoder.setZeroOffset(341.5);
         m_LauncherRotateMotor.setInverted(true);
         // m_LauncherRotateEncoder.setDistancePerRotation(360);
         // m_LauncherRotateEncoder.setPositionOffset(72.5);
@@ -124,8 +124,9 @@ public class LauncherRotateSubsystem extends SubsystemBase {
 
 
     public double getLauncherRotatePos(){
-      int valueOne = (int)m_LauncherRotateEncoder.getPosition() * 10;
-      double rotatePos = valueOne / 10;
+      // int valueOne = (int)m_LauncherRotateEncoder.getPosition() * 10;
+      // double rotatePos = valueOne / 10;
+      double rotatePos = m_LauncherRotateEncoder.getPosition();
       return rotatePos;
     }
 

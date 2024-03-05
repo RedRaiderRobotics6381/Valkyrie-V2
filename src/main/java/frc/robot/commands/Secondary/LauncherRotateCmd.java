@@ -6,17 +6,19 @@ package frc.robot.commands.Secondary;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 
 public class LauncherRotateCmd extends Command {
   
-  private final LauncherRotateSubsystem launcherRotateSubsystem;
-  private final double launcherRotateSetpoint;
-  public static boolean rotateComplete = false;
+  public static boolean rotateComplete = false; 
+  private LauncherRotateSubsystem launcherRotateSubsystem;
+  private double launcherRotateSetpoint;
   
   /** Creates a new LauncherRotateCmd. */
   public LauncherRotateCmd(double launcherRotateSetpoint, LauncherRotateSubsystem launcherRotateSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    //this.launcherRotateSetpoint = launcherRotateSetpoint;
     this.launcherRotateSetpoint = launcherRotateSetpoint;
     this.launcherRotateSubsystem = launcherRotateSubsystem;
     addRequirements(this.launcherRotateSubsystem);
@@ -34,7 +36,7 @@ public class LauncherRotateCmd extends Command {
   public void execute() {
     
     launcherRotateSubsystem.launcherRotatePIDController.setReference(launcherRotateSetpoint, CANSparkMax.ControlType.kSmartMotion);
-    if (launcherRotateSubsystem.getLauncherRotatePos() == launcherRotateSetpoint) {
+    if (Math.abs(launcherRotateSubsystem.getLauncherRotatePos()) <= LauncherConstants.LauncherAngleTol) {
       rotateComplete = true;
     }
   }

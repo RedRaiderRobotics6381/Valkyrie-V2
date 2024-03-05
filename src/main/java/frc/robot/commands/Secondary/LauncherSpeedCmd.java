@@ -7,13 +7,15 @@ package frc.robot.commands.Secondary;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Secondary.LauncherSubsystem;
 
 public class LauncherSpeedCmd extends Command {
   
-  private final LauncherSubsystem launcherSubsystem;
-  private final double launcherSpeedSetpoint;
   public static boolean speedComplete = false;
+  private LauncherSubsystem launcherSubsystem;
+  private double launcherSpeedSetpoint;
+
   
   /** Creates a new LauncherRotateCmd. */
   public LauncherSpeedCmd(double launcherSpeedSetpoint, LauncherSubsystem launcherSubsystem) {
@@ -34,7 +36,7 @@ public class LauncherSpeedCmd extends Command {
   @Override
   public void execute() {
     launcherSubsystem.launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkMax.ControlType.kVelocity);
-    if (launcherSubsystem.getLauncherSpeed() == launcherSpeedSetpoint) {
+    if (Math.abs(launcherSubsystem.getLauncherSpeed()-launcherSpeedSetpoint) <= LauncherConstants.LauncherSpeedTol) {
       speedComplete = true;
     }
   }

@@ -16,21 +16,21 @@ public class ScoreCmd extends Command {
   /** Creates a new Outtake. */
   
     
-    private final LauncherSubsystem launcherSubsystem;
-    private final IntakeSubsystem intakeSubsystem;
-    private final LauncherRotateSubsystem launcherRotateSubsystem;
-    private final double LauncherAngle;
-    private final double LauncherSpeed;
+    private LauncherSubsystem launcherSubsystem;
+    private IntakeSubsystem intakeSubsystem;
+    private LauncherRotateSubsystem launcherRotateSubsystem;
+    private double launcherAngle;
+    private double launcherSpeed;
 
     private boolean hasNote = true;
   
   
-    public ScoreCmd(double LauncherAngle, double LauncherSpeed, LauncherSubsystem launcherSubsystem, IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem) {
+    public ScoreCmd(double launcherAngle, double launcherSpeed, LauncherSubsystem launcherSubsystem, IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem) {
       this.launcherSubsystem = launcherSubsystem;
       this.intakeSubsystem = intakeSubsystem;
       this.launcherRotateSubsystem = launcherRotateSubsystem;
-      this.LauncherAngle = LauncherAngle;
-      this.LauncherSpeed = LauncherSpeed;
+      this.launcherAngle = launcherAngle;
+      this.launcherSpeed = launcherSpeed;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(this.launcherSubsystem, this.intakeSubsystem, this.launcherRotateSubsystem);
     }
@@ -46,8 +46,8 @@ public class ScoreCmd extends Command {
     @Override
     public void execute() {
       if(Robot.sensorOuttake.get() == true || Robot.sensorIntake.get() == true){
-        new LauncherRotateCmd(LauncherAngle, launcherRotateSubsystem);
-        new LauncherSpeedCmd(LauncherSpeed, launcherSubsystem);
+        new LauncherRotateCmd(launcherAngle, launcherRotateSubsystem);
+        new LauncherSpeedCmd(launcherSpeed, launcherSubsystem);
         new WaitUntilCommand(() -> LauncherRotateCmd.rotateComplete).withTimeout(2);
         new WaitUntilCommand(() -> LauncherSpeedCmd.speedComplete).withTimeout(1);
         new OuttakeCmd(intakeSubsystem);

@@ -1,4 +1,48 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "Pigeon 2 (v6)[13]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [14]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [15]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [16]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [18]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [19]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [20]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [21]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -17,6 +61,19 @@
         "window": {
           "visible": true
         }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "SmartDashboard": {
+        "Encoders": {
+          "open": true
+        },
+        "Motors": {
+          "open": true
+        },
+        "open": true
       }
     }
   },
