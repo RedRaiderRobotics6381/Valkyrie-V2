@@ -17,6 +17,11 @@ public class ClimberSubsystem extends SubsystemBase{
     public CANSparkMax m_climberMotorR;
     public RelativeEncoder m_climberEncoderR;
     public RelativeEncoder m_climberEncoderL;
+    public boolean climbed = false;
+    public boolean lowered = false;
+    private double climbDist = 12.25;
+    private double lowerDist = 13.0;
+    private double lowerStopDist = 0.5;
 
     /**
     * @param ClimberCmd
@@ -64,6 +69,55 @@ public class ClimberSubsystem extends SubsystemBase{
       // This method will be called once per scheduler run
       SmartDashboard.putNumber("RClimber Enc Val", m_climberEncoderR.getPosition());
       SmartDashboard.putNumber("LClimber Enc Val", m_climberEncoderL.getPosition());
+    }
+
+    public void climberClimb() {
+      if (m_climberEncoderR.getPosition() >= -0.1 &&
+          m_climberEncoderR.getPosition() <= climbDist){
+          m_climberMotorR.set(.75);
+      }
+      if (m_climberEncoderR.getPosition() >= climbDist) {
+          m_climberMotorR.set(0);
+      }
+  
+      if (m_climberEncoderL.getPosition() >= -0.1 &&
+          m_climberEncoderL.getPosition() <= climbDist - 1.0){
+          m_climberMotorL.set(.75);
+        } 
+      if (m_climberEncoderL.getPosition() >= climbDist - 1.0) {
+          m_climberMotorL.set(0);
+      }
+      if (m_climberEncoderR.getPosition() >= climbDist &&
+          m_climberEncoderL.getPosition() >= climbDist - 1.0){
+          climbed = true;
+      }
+    }
+
+    public void climberLower() {
+      if (m_climberEncoderR.getPosition() >= lowerStopDist &&
+        m_climberEncoderR.getPosition() <= lowerDist){
+        m_climberMotorR.set(-.50);
+      }
+      if (m_climberEncoderR.getPosition() <= lowerStopDist) {
+        m_climberMotorR.set(0);
+      }
+
+      if (m_climberEncoderL.getPosition() >= lowerStopDist &&
+        m_climberEncoderL.getPosition() <= lowerDist){
+        m_climberMotorL.set(-.50);
+      } 
+      if (m_climberEncoderL.getPosition() <= lowerStopDist) {
+        m_climberMotorL.set(0);
+      }
+      if (m_climberEncoderR.getPosition() <= lowerStopDist &&
+        m_climberEncoderL.getPosition() <= lowerStopDist){
+        lowered = true;
+      }
+    }
+
+    public void climberStop(){
+      m_climberMotorR.set(0.0);
+      m_climberMotorL.set(0.0);
     }
 
 }

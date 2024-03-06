@@ -5,9 +5,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.LauncherConstants;
 import frc.robot.commands.Secondary.IntakeCmd;
-import frc.robot.commands.Secondary.LauncherRotateCmd;
 import frc.robot.Robot;
 import frc.robot.subsystems.Secondary.IntakeSubsystem;
 import frc.robot.subsystems.Secondary.LEDsSubSystem;
@@ -80,7 +78,8 @@ public class PickUpNoteCmd extends Command
             swerveSubsystem.drive(new Translation2d(translationValx, 0.0), translationValz, false);
           } else{
               if (!intakeHasNote && !droveToNote){ //If the note is not in the intake, run the intake command
-                new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
+                //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
+                //launcherRotateSubsystem.launcherRotateToPosition(LauncherConstants.posIntake);
                 new IntakeCmd(intakeSubsystem, launcherRotateSubsystem);
                 swerveSubsystem.drive(new Translation2d(0.5, 0.0), 0.0, false);
               }             // swerveSubsystem.drive(new Translation2d(0.5, 0.0), 0.0, false);

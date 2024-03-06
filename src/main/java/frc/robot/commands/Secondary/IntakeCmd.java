@@ -5,8 +5,7 @@
 package frc.robot.commands.Secondary;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.LauncherConstants;
 //import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Secondary.IntakeSubsystem;
 import frc.robot.subsystems.Secondary.LEDsSubSystem;
@@ -14,13 +13,12 @@ import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 
 public class IntakeCmd extends Command {
 
-  private boolean hasNote = false;
-  //private LauncherRotateSubsystem launcherRotateSubsystem;
+  private LauncherRotateSubsystem launcherRotateSubsystem;
   private IntakeSubsystem intakeSubsystem;
   
   public IntakeCmd(IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
-    //this.launcherRotateSubsystem = launcherRotateSubsystem;
+    this.launcherRotateSubsystem = launcherRotateSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     addRequirements(intakeSubsystem);//, launcherRotateSubsystem);  
   }
@@ -28,35 +26,26 @@ public class IntakeCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hasNote = false;
+    intakeSubsystem.hasNote = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.sensorOuttake.get() == true){
-      hasNote = true;
-    } else {
-      //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
-      intakeSubsystem.indexerMotor.set(IntakeConstants.indexerIntakeSpeed);
-      intakeSubsystem.intakeMotor.set(IntakeConstants.intakeSpeed);
-      intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.launcherIndexerSpeed);
-      //System.out.println(Robot.sensorIntake.get());
-    }
+    launcherRotateSubsystem.launcherRotatePosCmd(LauncherConstants.posIntake);
+    intakeSubsystem.intakeIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     LEDsSubSystem.setLED(.91);
-    intakeSubsystem.indexerMotor.set(IntakeConstants.zeroSpeed);
-    intakeSubsystem.intakeMotor.set(IntakeConstants.zeroSpeed);
-    intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.zeroSpeed);
+    intakeSubsystem.stopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return hasNote;
+    return intakeSubsystem.hasNote;
   }
 }

@@ -48,8 +48,8 @@ public class ScoreCmd extends Command {
       if(Robot.sensorOuttake.get() == true || Robot.sensorIntake.get() == true){
         new LauncherRotateCmd(launcherAngle, launcherRotateSubsystem);
         new LauncherSpeedCmd(launcherSpeed, launcherSubsystem);
-        new WaitUntilCommand(() -> LauncherRotateCmd.rotateComplete).withTimeout(2);
-        new WaitUntilCommand(() -> LauncherSpeedCmd.speedComplete).withTimeout(1);
+        new WaitUntilCommand(() -> launcherRotateSubsystem.rotateComplete()).withTimeout(2);
+        new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1);
         new OuttakeCmd(intakeSubsystem);
       } else {
         new WaitCommand(1.0);

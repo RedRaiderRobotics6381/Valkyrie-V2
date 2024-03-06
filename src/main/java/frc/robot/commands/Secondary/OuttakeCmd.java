@@ -5,14 +5,11 @@
 package frc.robot.commands.Secondary;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.Secondary.IntakeSubsystem;
 import frc.robot.subsystems.Secondary.LEDsSubSystem;
 
 public class OuttakeCmd extends Command {
 
-  private boolean hasNote = true;
   private IntakeSubsystem intakeSubsystem;
   
   public OuttakeCmd(IntakeSubsystem intakeSubsystem){
@@ -24,31 +21,25 @@ public class OuttakeCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hasNote = true;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.sensorOuttake.get() == true){
-      intakeSubsystem.indexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
-      intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
-    } else{
-      hasNote = false;
-    }
+    intakeSubsystem.intakeOuttake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     LEDsSubSystem.setLED(.99);
-    intakeSubsystem.indexerMotor.set(IntakeConstants.zeroSpeed);
-    intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.zeroSpeed);
+    intakeSubsystem.stopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return hasNote;
+    return intakeSubsystem.hasNote;
   }
 }

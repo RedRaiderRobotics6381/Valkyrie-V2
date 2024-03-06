@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.LauncherConstants;
 
 public class LauncherSubsystem extends SubsystemBase {
 
@@ -86,7 +87,7 @@ public class LauncherSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Launcher Set Speed", launcherSpeedSetpoint);
         SmartDashboard.putNumber("Launcher Raw Speed", encoderTop.getVelocity());
         SmartDashboard.putNumber("Launcher Rnd Speed", getLauncherSpeed());
-        SmartDashboard.putBoolean("Launcher at Speed", speedComplete());
+        SmartDashboard.putBoolean("Launcher at Speed", launcherSpeedComplete());
         //currentLauncherSpeed = (m_launcherMotorTop.getAbsoluteEncoder().getVelocity()) * 60;
         //launcherPIDControllerBot.setReference(1000, CANSparkFlex.ControlType.kSmartVelocity);
     }
@@ -101,12 +102,15 @@ public class LauncherSubsystem extends SubsystemBase {
         return launcherSpeed;
       }
   
-      public boolean speedComplete(){
-        if (getLauncherSpeed() == launcherSpeedSetpoint){
+      public boolean launcherSpeedComplete(){
+        if (Math.abs(getLauncherSpeed()-launcherSpeedSetpoint) <= LauncherConstants.LauncherSpeedTol) {
           return true;
         } else {
           return false;
         }
       }
+    public void setLauncherSpeed(double launcherSpeedSetpoint){
+      launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkFlex.ControlType.kVelocity);
+    }
 
 }

@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AprilTagConstants;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Secondary.ClimbCmd;
+import frc.robot.commands.Secondary.ClimberClimbCmd;
 import frc.robot.commands.Secondary.IntakeCmd;
-import frc.robot.commands.Secondary.LowerCmd;
+import frc.robot.commands.Secondary.ClimberLowerCmd;
 import frc.robot.commands.Secondary.ScoreAutoCmd;
 import frc.robot.commands.Secondary.ScoreCmd;
 import frc.robot.commands.Vision.DriveToAmpCmd;
@@ -209,8 +209,12 @@ public class RobotContainer
     new JoystickButton(engineerXbox, 5).whileTrue(new IntakeCmd(intakeSubsystem, launcherRotateSubsystem));
     
     
-    new POVButton(engineerXbox, 0).onTrue(new ClimbCmd(climberSubsystem));
-    new POVButton(engineerXbox, 180).onTrue(new LowerCmd(climberSubsystem));
+    new POVButton(engineerXbox, 0).onTrue(new ClimberClimbCmd(climberSubsystem));
+    new POVButton(engineerXbox, 180).onTrue(new ClimberLowerCmd(climberSubsystem));
+    //new POVButton(engineerXbox, 0).onTrue(climberSubsystem.climberClimb());
+    //new POVButton(engineerXbox, 180).onTrue(climberSubsystem.climberLower());
+
+    
     
  
  // new JoystickButton(driverXbox,

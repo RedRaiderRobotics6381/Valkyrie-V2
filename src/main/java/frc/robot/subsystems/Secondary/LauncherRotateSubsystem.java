@@ -21,6 +21,7 @@ public class LauncherRotateSubsystem extends SubsystemBase {
   public static SparkAbsoluteEncoder m_LauncherRotateEncoder;
   public static double LauncherRotateSetpoint;
   public static double RotateManualPos;
+  public boolean launcherRotateComplete;
   
 
   /** Creates a new LauncherRotateSubsystem. 
@@ -114,30 +115,37 @@ public class LauncherRotateSubsystem extends SubsystemBase {
   
   public Command launcherRotatePosCmd(double LauncherRotateSetpoint) {
     // implicitly require `this`
-    return this.run(() -> launcherRotatePIDController.setReference(LauncherRotateSetpoint, CANSparkMax.ControlType.kSmartMotion));
-    
+    return this.runOnce(
+      () -> launcherRotatePIDController.setReference(LauncherRotateSetpoint, CANSparkMax.ControlType.kSmartMotion)
+    );
   }
 
   public void setDefaultCommand(){
       //m_armPIDController.setReference(ArmRotateSetpoint, CANSparkMax.ControlType.kSmartMotion);
   }
 
+  // public void launcherRotatePos(double launcherRotateSetpoint){
+  //   launcherRotatePIDController.setReference(launcherRotateSetpoint, CANSparkMax.ControlType.kSmartMotion);
+  //   if (Math.abs(getLauncherRotatePos()) <= LauncherConstants.LauncherAngleTol) {
+  //     launcherRotateComplete = true;
+  //   }
+  // }
 
-    public double getLauncherRotatePos(){
-      // int valueOne = (int)m_LauncherRotateEncoder.getPosition() * 10;
-      // double rotatePos = valueOne / 10;
-      double rotatePos = m_LauncherRotateEncoder.getPosition();
-      return rotatePos;
+  public double getLauncherRotatePos(){
+    // int valueOne = (int)m_LauncherRotateEncoder.getPosition() * 10;
+    // double rotatePos = valueOne / 10;
+    double rotatePos = m_LauncherRotateEncoder.getPosition();
+    return rotatePos;
+  }
+
+  public boolean rotateComplete(){
+    if (getLauncherRotatePos() == LauncherRotateSetpoint){
+      return true;
+    } else {
+      return false;
     }
 
-    public boolean rotateComplete(){
-      if (getLauncherRotatePos() == LauncherRotateSetpoint){
-        return true;
-      } else {
-        return false;
-      }
-
-    }
+  }
 
 
 }

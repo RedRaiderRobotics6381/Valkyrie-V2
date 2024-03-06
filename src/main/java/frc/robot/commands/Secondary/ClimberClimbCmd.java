@@ -3,43 +3,43 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Secondary;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Secondary.LauncherSubsystem;
+import frc.robot.subsystems.Secondary.ClimberSubsystem;
 
-public class LauncherSpeedCmd extends Command {
-  
-  public static boolean speedComplete = false;
-  private LauncherSubsystem launcherSubsystem;
-  private double launcherSpeedSetpoint;
 
-  
-  /** Creates a new LauncherRotateCmd. */
-  public LauncherSpeedCmd(double launcherSpeedSetpoint, LauncherSubsystem launcherSubsystem) {
+public class ClimberClimbCmd extends Command {
+
+  private ClimberSubsystem climberSubsystem;
+
+  public ClimberClimbCmd(ClimberSubsystem climberSubsystem) {
+    this.climberSubsystem = climberSubsystem;
+    addRequirements(climberSubsystem);
+
     // Use addRequirements() here to declare subsystem dependencies.
-    this.launcherSpeedSetpoint = launcherSpeedSetpoint;
-    this.launcherSubsystem = launcherSubsystem;
-    addRequirements(launcherSubsystem);
   }
 
   // Called when the command is initially scheduled.
-
   @Override
   public void initialize() {
+    climberSubsystem.climbed = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    launcherSubsystem.setLauncherSpeed(launcherSpeedSetpoint);
+    climberSubsystem.climberClimb();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+     climberSubsystem.climberStop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcherSubsystem.launcherSpeedComplete();
+    return climberSubsystem.climbed;
   }
 }

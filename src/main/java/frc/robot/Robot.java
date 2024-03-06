@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.AprilTagConstants;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.commands.Secondary.ClimbCmd;
+import frc.robot.commands.Secondary.ClimberClimbCmd;
 import frc.robot.subsystems.Secondary.ClimberSubsystem;
 import frc.robot.subsystems.Secondary.LEDsSubSystem;
 import swervelib.parser.SwerveParser;
@@ -147,7 +147,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.setMotorBrake(true);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    new ClimbCmd(climberSubsystem);
+    new ClimberClimbCmd(climberSubsystem);
     aprilTagAlliance();
 
     // schedule the autonomous command (example)

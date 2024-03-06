@@ -6,6 +6,8 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -13,6 +15,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public CANSparkMax indexerMotor;
     public CANSparkFlex launcherIndexerMotor;
     public static SparkPIDController intakePIDController;
+    public boolean hasNote = false;
     //LauncherRotateSubsystem launcherRotateSubsystem = new LauncherRotateSubsystem();
 
     public IntakeSubsystem() {
@@ -29,9 +32,42 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     @Override
-  public void periodic() {
+    public void periodic() {
 
-}
+    }
+  
+    public void intakeIntake(){  
+      if(Robot.sensorOuttake.get() == true){
+        hasNote = true;
+      } else {
+        //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
+        indexerMotor.set(IntakeConstants.indexerIntakeSpeed);
+        intakeMotor.set(IntakeConstants.intakeSpeed);
+        launcherIndexerMotor.set(IntakeConstants.launcherIndexerSpeed);
+        //System.out.println(Robot.sensorIntake.get());
+      }
+    }
+    
+    public void intakeOuttake(){  
+      if(Robot.sensorOuttake.get() == true){
+        indexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
+        launcherIndexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
+      } else{
+        hasNote = false;
+      }
+    }
+
+    public void stopIntake(){  
+      if(Robot.sensorOuttake.get() == true){
+        hasNote = true;
+      } else {
+        //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
+        indexerMotor.set(0);
+        intakeMotor.set(0);
+        launcherIndexerMotor.set(0);
+        //System.out.println(Robot.sensorIntake.get());
+      }
+    }
     
 
 }

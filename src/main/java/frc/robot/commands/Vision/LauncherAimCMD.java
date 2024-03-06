@@ -5,6 +5,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AprilTagConstants;
@@ -73,7 +74,11 @@ public class LauncherAimCMD extends Command
 
             Double ID_HEIGHT = LauncherConstants.kAutoScoreAimHeight;//Meters
             Launcher_Pitch = ((Math.toDegrees(Math.atan(ID_HEIGHT / LAUNCHER_TO_TOWER))) + 90);
-            new LauncherRotateCmd(Launcher_Pitch, launcherRotateSubsystem).withTimeout(1);
+            
+            //launcherRotateSubsystem.launcherRotateToPosition(Launcher_Pitch);
+            Commands.run(() -> new LauncherRotateCmd(Launcher_Pitch, launcherRotateSubsystem), launcherRotateSubsystem);
+
+            // (new LauncherRotateCmd(Launcher_Pitch, launcherRotateSubsystem).withTimeout(1));
             //LauncherRotateSubsystem.m_LauncherRotatePIDController.setReference(Launcher_Pitch,CANSparkMax.ControlType.kSmartMotion);
             SmartDashboard.putNumber("Angle to Target", Launcher_Pitch);
             SmartDashboard.putNumber("Dist to Target", LAUNCHER_TO_TOWER);
@@ -108,7 +113,7 @@ public class LauncherAimCMD extends Command
   public boolean isFinished()
   {
     //return Robot.sensorOuttake.get() == false;
-    return LauncherRotateCmd.rotateComplete;
+    return launcherRotateSubsystem.launcherRotateComplete;
   }
 
   /**
