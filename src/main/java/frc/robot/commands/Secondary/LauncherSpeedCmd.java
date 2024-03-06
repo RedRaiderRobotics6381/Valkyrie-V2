@@ -22,7 +22,7 @@ public class LauncherSpeedCmd extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.launcherSpeedSetpoint = launcherSpeedSetpoint;
     this.launcherSubsystem = launcherSubsystem;
-    addRequirements(this.launcherSubsystem);
+    addRequirements(launcherSubsystem);
   }
 
   // Called when the command is initially scheduled.

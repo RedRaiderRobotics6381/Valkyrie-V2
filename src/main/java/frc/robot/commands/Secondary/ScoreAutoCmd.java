@@ -29,7 +29,7 @@ public class ScoreAutoCmd extends Command {
       this.launcherSubsystem = launcherSubsystem;
       this.intakeSubsystem = intakeSubsystem;
       this.launcherRotateSubsystem = launcherRotateSubsystem;
-      addRequirements(this.launcherSubsystem, this.intakeSubsystem, this.launcherRotateSubsystem);
+      addRequirements(launcherSubsystem, intakeSubsystem, launcherRotateSubsystem);
       
       
       // Use addRequirements() here to declare subsystem dependencies.

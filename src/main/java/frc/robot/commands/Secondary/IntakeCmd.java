@@ -7,7 +7,7 @@ package frc.robot.commands.Secondary;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.LauncherConstants;
+//import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Secondary.IntakeSubsystem;
 import frc.robot.subsystems.Secondary.LEDsSubSystem;
 import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
@@ -15,14 +15,14 @@ import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 public class IntakeCmd extends Command {
 
   private boolean hasNote = false;
-  private LauncherRotateSubsystem launcherRotateSubsystem;
+  //private LauncherRotateSubsystem launcherRotateSubsystem;
   private IntakeSubsystem intakeSubsystem;
   
   public IntakeCmd(IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
-    this.launcherRotateSubsystem = launcherRotateSubsystem;
+    //this.launcherRotateSubsystem = launcherRotateSubsystem;
     this.intakeSubsystem = intakeSubsystem;
-    addRequirements(this.intakeSubsystem, this.launcherRotateSubsystem);  
+    addRequirements(intakeSubsystem);//, launcherRotateSubsystem);  
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ public class IntakeCmd extends Command {
     if(Robot.sensorOuttake.get() == true){
       hasNote = true;
     } else {
-      new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
+      //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
       intakeSubsystem.indexerMotor.set(IntakeConstants.indexerIntakeSpeed);
       intakeSubsystem.intakeMotor.set(IntakeConstants.intakeSpeed);
       intakeSubsystem.launcherIndexerMotor.set(IntakeConstants.launcherIndexerSpeed);

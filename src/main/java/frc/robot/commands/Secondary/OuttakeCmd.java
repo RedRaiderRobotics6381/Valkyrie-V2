@@ -18,7 +18,7 @@ public class OuttakeCmd extends Command {
   public OuttakeCmd(IntakeSubsystem intakeSubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeSubsystem = intakeSubsystem;
-    addRequirements(this.intakeSubsystem);
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.

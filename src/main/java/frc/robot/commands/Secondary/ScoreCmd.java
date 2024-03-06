@@ -32,7 +32,7 @@ public class ScoreCmd extends Command {
       this.launcherAngle = launcherAngle;
       this.launcherSpeed = launcherSpeed;
       // Use addRequirements() here to declare subsystem dependencies.
-      addRequirements(this.launcherSubsystem, this.intakeSubsystem, this.launcherRotateSubsystem);
+      addRequirements(launcherSubsystem, intakeSubsystem, launcherRotateSubsystem);
     }
   
     // Called when the command is initially scheduled.

@@ -43,7 +43,7 @@ public class PickUpNoteCmd extends Command
 
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)
-    addRequirements(this.swerveSubsystem, this.launcherRotateSubsystem, this.intakeSubsystem);
+    addRequirements(swerveSubsystem, launcherRotateSubsystem, intakeSubsystem);
   }
 
   /**

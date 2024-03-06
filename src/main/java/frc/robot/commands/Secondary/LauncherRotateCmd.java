@@ -21,7 +21,7 @@ public class LauncherRotateCmd extends Command {
     //this.launcherRotateSetpoint = launcherRotateSetpoint;
     this.launcherRotateSetpoint = launcherRotateSetpoint;
     this.launcherRotateSubsystem = launcherRotateSubsystem;
-    addRequirements(this.launcherRotateSubsystem);
+    addRequirements(launcherRotateSubsystem);
   }
 
   // Called when the command is initially scheduled.
