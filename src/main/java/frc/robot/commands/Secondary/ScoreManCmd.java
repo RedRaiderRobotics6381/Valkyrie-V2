@@ -21,8 +21,8 @@ public class ScoreManCmd extends SequentialCommandGroup {
         new LauncherRotateCmd(launcherAngle, launcherRotateSubsystem),
         new LauncherSpeedCmd(launcherSpeed, launcherSubsystem),
         new WaitUntilCommand(() -> launcherRotateSubsystem.launcherRotateComplete()).withTimeout(2),
-        new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1),
-        new OuttakeCmd(intakeSubsystem)
+        new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1)
+        //new OuttakeCmd(intakeSubsystem)
       );
     }
   }

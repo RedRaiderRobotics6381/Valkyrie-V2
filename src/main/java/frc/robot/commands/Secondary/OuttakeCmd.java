@@ -1,45 +1,45 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// // Copyright (c) FIRST and other WPILib contributors.
+// // Open Source Software; you can modify and/or share it under the terms of
+// // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Secondary;
+// package frc.robot.commands.Secondary;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Secondary.IntakeSubsystem;
-import frc.robot.subsystems.Secondary.LEDsSubSystem;
+// import edu.wpi.first.wpilibj2.command.Command;
+// import frc.robot.subsystems.Secondary.IntakeSubsystem;
+// import frc.robot.subsystems.Secondary.LEDsSubSystem;
 
-public class OuttakeCmd extends Command {
+// public class OuttakeCmd extends Command {
 
-  private IntakeSubsystem intakeSubsystem;
+//   private final IntakeSubsystem m_intakeSubsystem;
   
-  public OuttakeCmd(IntakeSubsystem intakeSubsystem){
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intakeSubsystem = intakeSubsystem;
-    addRequirements(intakeSubsystem);
-  }
+//   public OuttakeCmd(IntakeSubsystem intakeSubsystem){
+//     // Use addRequirements() here to declare subsystem dependencies.
+//     this.m_intakeSubsystem = intakeSubsystem;
+//     addRequirements(m_intakeSubsystem);
+//   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+//   // Called when the command is initially scheduled.
+//   @Override
+//   public void initialize() {
 
-  }
+//   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    intakeSubsystem.intakeOuttake();
-  }
+//   // Called every time the scheduler runs while the command is scheduled.
+//   @Override
+//   public void execute() {
+//     m_intakeSubsystem.intakeOuttakeCmd();
+//   }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    LEDsSubSystem.setLED(.99);
-    intakeSubsystem.stopIntake();
-  }
+//   // Called once the command ends or is interrupted.
+//   @Override
+//   public void end(boolean interrupted) {
+//     LEDsSubSystem.setLED(.99);
+//     m_intakeSubsystem.stopIntake();
+//   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return intakeSubsystem.hasNote;
-  }
-}
+//   // Returns true when the command should end.
+//   @Override
+//   public boolean isFinished() {
+//     return m_intakeSubsystem.hasNote;
+//   }
+// }

@@ -5,21 +5,19 @@
 package frc.robot.commands.Secondary;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class LauncherRotateCmd extends WaitCommand{
+public class LauncherRotateCmd extends Command{
   
   public static boolean speedComplete = false;
-  private LauncherRotateSubsystem launcherRotateSubsystem;
+  private final LauncherRotateSubsystem m_launcherRotateSubsystem;
   private double launcherRotateSetpoint;
 
   
   /** Creates a new LauncherRotateCmd. */
   public LauncherRotateCmd(double launcherRotateSetpoint, LauncherRotateSubsystem launcherRotateSubsystem) {
-    super(0.25);
     // Use addRequirements() here to declare subsystem dependencies.
     this.launcherRotateSetpoint = launcherRotateSetpoint;
-    this.launcherRotateSubsystem = launcherRotateSubsystem;
+    this.m_launcherRotateSubsystem = launcherRotateSubsystem;
     addRequirements(launcherRotateSubsystem);
     
   }
@@ -29,7 +27,7 @@ public class LauncherRotateCmd extends WaitCommand{
   @Override
   public void initialize() {
     
-    launcherRotateSubsystem.launcherRotatePosCmd(launcherRotateSetpoint);
+    m_launcherRotateSubsystem.launcherRotatePosCmd(launcherRotateSetpoint);
     super.initialize();
   }
 
@@ -46,6 +44,6 @@ public class LauncherRotateCmd extends WaitCommand{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcherRotateSubsystem.launcherRotateComplete;
+    return m_launcherRotateSubsystem.launcherRotateComplete;
   }
 }

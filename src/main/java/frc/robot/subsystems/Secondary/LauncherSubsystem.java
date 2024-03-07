@@ -85,8 +85,7 @@ public class LauncherSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Launcher Set Speed", launcherSpeedSetpoint);
-        SmartDashboard.putNumber("Launcher Raw Speed", encoderTop.getVelocity());
-        SmartDashboard.putNumber("Launcher Rnd Speed", getLauncherSpeed());
+        SmartDashboard.putNumber("Launcher Speed", encoderTop.getVelocity());
         SmartDashboard.putBoolean("Launcher at Speed", launcherSpeedComplete());
         //currentLauncherSpeed = (m_launcherMotorTop.getAbsoluteEncoder().getVelocity()) * 60;
         //launcherPIDControllerBot.setReference(1000, CANSparkFlex.ControlType.kSmartVelocity);
@@ -94,7 +93,7 @@ public class LauncherSubsystem extends SubsystemBase {
     
     public Command launcherSpeedCmd(double launcherSpeedSetpoint) {
         // implicitly require `this`
-        return this.runOnce(() -> launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkFlex.ControlType.kVelocity));
+        return this.run(() -> launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkFlex.ControlType.kVelocity));
     }
     
     public double getLauncherSpeed(){
@@ -103,7 +102,7 @@ public class LauncherSubsystem extends SubsystemBase {
       }
   
       public boolean launcherSpeedComplete(){
-        if (Math.abs(getLauncherSpeed()-launcherSpeedSetpoint) <= LauncherConstants.LauncherSpeedTol) {
+        if (Math.abs(getLauncherSpeed() - launcherSpeedSetpoint) <= LauncherConstants.LauncherSpeedTol) {
           return true;
         } else {
           return false;

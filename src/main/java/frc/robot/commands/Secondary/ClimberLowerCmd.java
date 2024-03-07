@@ -10,11 +10,11 @@ import frc.robot.subsystems.Secondary.ClimberSubsystem;
 
 public class ClimberLowerCmd extends Command {
 
-  private ClimberSubsystem climberSubsystem;
+  private final ClimberSubsystem m_climberSubsystem;
 
   public ClimberLowerCmd(ClimberSubsystem climberSubsystem) {
-    this.climberSubsystem = climberSubsystem;
-    addRequirements(climberSubsystem);
+    this.m_climberSubsystem = climberSubsystem;
+    addRequirements(m_climberSubsystem);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,24 +22,24 @@ public class ClimberLowerCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climberSubsystem.lowered = false;
+    m_climberSubsystem.lowered = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climberSubsystem.climberLower();
+    m_climberSubsystem.climberLower();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climberSubsystem.climberStop();
+    m_climberSubsystem.climberStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climberSubsystem.lowered;
+    return m_climberSubsystem.lowered;
   }
 }

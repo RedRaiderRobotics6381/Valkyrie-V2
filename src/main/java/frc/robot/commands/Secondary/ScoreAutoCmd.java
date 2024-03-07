@@ -23,8 +23,8 @@ public class ScoreAutoCmd extends SequentialCommandGroup {
         new LauncherAimCMD(launcherRotateSubsystem),
         new LauncherSpeedCmd(LauncherConstants.LauncherSpeedMult, launcherSubsystem),
         new WaitUntilCommand(() -> launcherRotateSubsystem.launcherRotateComplete()).withTimeout(2),
-        new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1),
-        new OuttakeCmd(intakeSubsystem)
+        new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1)
+        //new OuttakeCmd(intakeSubsystem)
       );
     }
   }

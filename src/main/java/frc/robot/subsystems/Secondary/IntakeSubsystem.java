@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -49,25 +51,37 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     
     public void intakeOuttake(){  
-      if(Robot.sensorOuttake.get() == true){
         indexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
-        launcherIndexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
-      } else{
-        hasNote = false;
-      }
+        launcherIndexerMotor.set(IntakeConstants.launcherIndexerOuttakeSpeed);
     }
 
-    public void stopIntake(){  
-      if(Robot.sensorOuttake.get() == true){
-        hasNote = true;
-      } else {
-        //new LauncherRotateCmd(LauncherConstants.posIntake, launcherRotateSubsystem);
-        indexerMotor.set(0);
-        intakeMotor.set(0);
-        launcherIndexerMotor.set(0);
-        //System.out.println(Robot.sensorIntake.get());
-      }
+    public Command intakeIntakeCmd() {
+      // implicitly require `this`
+      return this.runOnce(() -> {
+                                 indexerMotor.set(IntakeConstants.indexerIntakeSpeed);
+                                 launcherIndexerMotor.set(IntakeConstants.indexerIntakeSpeed);
+                                 intakeMotor.set(IntakeConstants.intakeSpeed);
+                                 });
     }
+
+    public Command intakeOuttakeCmd() {
+      // implicitly require `this`
+        return this.runOnce(
+          () -> {
+            indexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
+            launcherIndexerMotor.set(IntakeConstants.indexerOuttakeSpeed);
+          });
+    }
+    
+    public Command intakeStopCmd() {
+      // implicitly require `this`
+      return this.runOnce(() -> {
+                                 indexerMotor.set(0);
+                                 launcherIndexerMotor.set(0);
+                                 intakeMotor.set(0);
+                                 });
+    }
+
     
 
 }

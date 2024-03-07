@@ -9,7 +9,7 @@ import frc.robot.subsystems.Secondary.LauncherSubsystem;
 public class LauncherSpeedCmd extends Command {
   
   public static boolean speedComplete = false;
-  private LauncherSubsystem launcherSubsystem;
+  private final LauncherSubsystem m_launcherSubsystem;
   private double launcherSpeedSetpoint;
 
   
@@ -17,7 +17,7 @@ public class LauncherSpeedCmd extends Command {
   public LauncherSpeedCmd(double launcherSpeedSetpoint, LauncherSubsystem launcherSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.launcherSpeedSetpoint = launcherSpeedSetpoint;
-    this.launcherSubsystem = launcherSubsystem;
+    this.m_launcherSubsystem = launcherSubsystem;
     addRequirements(launcherSubsystem);
   }
 
@@ -30,7 +30,7 @@ public class LauncherSpeedCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    launcherSubsystem.setLauncherSpeed(launcherSpeedSetpoint);
+    m_launcherSubsystem.setLauncherSpeed(launcherSpeedSetpoint);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +40,6 @@ public class LauncherSpeedCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcherSubsystem.launcherSpeedComplete();
+    return m_launcherSubsystem.launcherSpeedComplete();
   }
 }
