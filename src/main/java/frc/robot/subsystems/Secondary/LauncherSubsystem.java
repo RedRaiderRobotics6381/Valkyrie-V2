@@ -92,9 +92,9 @@ public class LauncherSubsystem extends SubsystemBase {
         //launcherPIDControllerBot.setReference(1000, CANSparkFlex.ControlType.kSmartVelocity);
     }
     
-    public Command LauncherCmd(double launcherSpeedSetpoint) {
+    public Command launcherSpeedCmd(double launcherSpeedSetpoint) {
         // implicitly require `this`
-        return this.run(() -> launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkFlex.ControlType.kVelocity));
+        return this.runOnce(() -> launcherPIDControllerTop.setReference(launcherSpeedSetpoint, CANSparkFlex.ControlType.kVelocity));
     }
     
     public double getLauncherSpeed(){

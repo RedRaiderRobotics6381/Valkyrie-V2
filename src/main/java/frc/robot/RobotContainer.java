@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -22,9 +24,11 @@ import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Secondary.ClimberClimbCmd;
 import frc.robot.commands.Secondary.IntakeCmd;
+import frc.robot.commands.Secondary.LauncherRotateCmd;
 import frc.robot.commands.Secondary.ClimberLowerCmd;
 import frc.robot.commands.Secondary.ScoreAutoCmd;
-import frc.robot.commands.Secondary.ScoreCmd;
+//import frc.robot.commands.Secondary.ScoreCmd;
+import frc.robot.commands.Secondary.ScoreManCmd;
 import frc.robot.commands.Vision.DriveToAmpCmd;
 //import frc.robot.commands.Secondary.ScoreSpeakerCmd;
 //import frc.robot.commands.Vision.DriveToObjectCmd;
@@ -91,7 +95,7 @@ public class RobotContainer
     // NamedCommands.registerCommand("Shoot", new ScoreAutoCmd(launcherSubsystem));
     drivebase.setupPathPlanner();
     NamedCommands.registerCommand("Shoot", new ScoreAutoCmd(launcherSubsystem, intakeSubsystem, launcherRotateSubsystem));
-    NamedCommands.registerCommand("Aim", new ScoreCmd(LauncherConstants.SpeakerScoreAngle, LauncherConstants.SpeakerScoreSpeed, launcherSubsystem, intakeSubsystem, launcherRotateSubsystem));
+    NamedCommands.registerCommand("Aim", new ScoreManCmd(LauncherConstants.SpeakerScoreAngle, LauncherConstants.SpeakerScoreSpeed, launcherSubsystem, intakeSubsystem, launcherRotateSubsystem));
     NamedCommands.registerCommand("Intake", new IntakeCmd(intakeSubsystem, launcherRotateSubsystem));
     NamedCommands.registerCommand("DriveToNote", new PickUpNoteCmd(drivebase, launcherRotateSubsystem, intakeSubsystem));
     NamedCommands.registerCommand("DriveToSpeaker", new DriveToSpeakerCmd(drivebase));
@@ -184,18 +188,19 @@ public class RobotContainer
     // new JoystickButton(engineerXbox, 1).onTrue(launcherRotateSubsystem.rotatePosCommand(LauncherConstants.posOuttake));
     // new JoystickButton(engineerXbox, 3).onTrue(launcherRotateSubsystem.rotatePosCommand(LauncherConstants.posDefault)); //190.0 // DO NOT RUN AT 190. LAUNCHER WILL BREAK!!
     
-    new JoystickButton(engineerXbox, 4).onTrue(new ScoreCmd(LauncherConstants.TrapScoreAngle,
-                                                                         LauncherConstants.TrapScoreSpeed,
-                                                                         launcherSubsystem, intakeSubsystem,
-                                                                         launcherRotateSubsystem));
-    new JoystickButton(engineerXbox, 2).onTrue(new ScoreCmd(LauncherConstants.AmpScoreAngle,
-                                                                         LauncherConstants.AmpScoreSpeed,
-                                                                         launcherSubsystem, intakeSubsystem,
-                                                                         launcherRotateSubsystem));
-    new JoystickButton(engineerXbox, 3).onTrue(new ScoreCmd(LauncherConstants.SpeakerScoreAngle,
-                                                                         LauncherConstants.SpeakerScoreSpeed,
-                                                                         launcherSubsystem, intakeSubsystem,
-                                                                         launcherRotateSubsystem));
+    // new JoystickButton(engineerXbox, 4).onTrue(new ScoreManCmd(LauncherConstants.TrapScoreAngle,
+    //                                                                         LauncherConstants.TrapScoreSpeed,
+    //                                                                         launcherSubsystem, intakeSubsystem,
+    //                                                                         launcherRotateSubsystem));
+    new JoystickButton(engineerXbox, 4).onTrue(new LauncherRotateCmd(LauncherConstants.TrapScoreAngle, launcherRotateSubsystem));
+    new JoystickButton(engineerXbox, 2).onTrue(new ScoreManCmd(LauncherConstants.AmpScoreAngle,
+                                                                            LauncherConstants.AmpScoreSpeed,
+                                                                            launcherSubsystem, intakeSubsystem,
+                                                                            launcherRotateSubsystem));
+    new JoystickButton(engineerXbox, 3).onTrue(new ScoreManCmd(LauncherConstants.SpeakerScoreAngle,
+                                                                            LauncherConstants.SpeakerScoreSpeed,
+                                                                            launcherSubsystem, intakeSubsystem,
+                                                                            launcherRotateSubsystem));
 
     // new JoystickButton(engineerXbox, 4).onTrue(new ScoreTrapCmd(launcherSubsystem));
     // new JoystickButton(engineerXbox, 2).onTrue(new ScoreAmpCmd(launcherSubsystem, intakeSubsystem, launcherRotateSubsystem));
@@ -313,5 +318,8 @@ public class RobotContainer
         }
       }
       return yawToSpeakerValue;
+    }
+    public void lowerArms(){
+      new ClimberClimbCmd(climberSubsystem);
     }
 }

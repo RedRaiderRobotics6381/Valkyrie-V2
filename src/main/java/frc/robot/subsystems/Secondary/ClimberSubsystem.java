@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
-//is this working?
-
-
 public class ClimberSubsystem extends SubsystemBase{
     public CANSparkMax m_climberMotorL;  
     public CANSparkMax m_climberMotorR;
@@ -71,7 +68,7 @@ public class ClimberSubsystem extends SubsystemBase{
       SmartDashboard.putNumber("LClimber Enc Val", m_climberEncoderL.getPosition());
     }
 
-    public void climberClimb() {
+    public boolean climberClimb() {
       if (m_climberEncoderR.getPosition() >= -0.1 &&
           m_climberEncoderR.getPosition() <= climbDist){
           m_climberMotorR.set(.75);
@@ -91,6 +88,7 @@ public class ClimberSubsystem extends SubsystemBase{
           m_climberEncoderL.getPosition() >= climbDist - 1.0){
           climbed = true;
       }
+      return climbed;
     }
 
     public void climberLower() {

@@ -39,7 +39,7 @@ public class LauncherRotateSubsystem extends SubsystemBase {
         m_LauncherRotateMotor.restoreFactoryDefaults();  //Remove this when we remove the burnFlash() call below
         m_LauncherRotateEncoder = m_LauncherRotateMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
         m_LauncherRotateEncoder.setPositionConversionFactor(360);
-        m_LauncherRotateEncoder.setZeroOffset(341.5);
+        m_LauncherRotateEncoder.setZeroOffset(342.4);
         m_LauncherRotateMotor.setInverted(true);
         // m_LauncherRotateEncoder.setDistancePerRotation(360);
         // m_LauncherRotateEncoder.setPositionOffset(72.5);
@@ -98,7 +98,7 @@ public class LauncherRotateSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Rotator Set Pos", LauncherRotateSetpoint);
     SmartDashboard.putNumber("Rotator Raw Pos", m_LauncherRotateEncoder.getPosition());
     SmartDashboard.putNumber("Rotator Rnd Pos", getLauncherRotatePos());
-    SmartDashboard.putBoolean("Rotator at Set Pos", rotateComplete());
+    SmartDashboard.putBoolean("Rotator at Set Pos", launcherRotateComplete());
     if(RobotContainer.engineerXbox.getRightY() > 0.1 || RobotContainer.engineerXbox.getRightY() < -0.1){
       launcherRotatePIDController.setReference((m_LauncherRotateEncoder.getPosition()) +
                                                         (RobotContainer.engineerXbox.getRightY() * -20),
@@ -138,7 +138,7 @@ public class LauncherRotateSubsystem extends SubsystemBase {
     return rotatePos;
   }
 
-  public boolean rotateComplete(){
+  public boolean launcherRotateComplete(){
     if (getLauncherRotatePos() == LauncherRotateSetpoint){
       return true;
     } else {

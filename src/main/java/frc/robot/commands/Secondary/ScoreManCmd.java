@@ -8,20 +8,18 @@ package frc.robot.commands.Secondary;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
-import frc.robot.Constants.LauncherConstants;
 import frc.robot.Robot;
-import frc.robot.commands.Vision.LauncherAimCMD;
 import frc.robot.subsystems.Secondary.IntakeSubsystem;
 import frc.robot.subsystems.Secondary.LauncherRotateSubsystem;
 import frc.robot.subsystems.Secondary.LauncherSubsystem;
 
-public class ScoreAutoCmd extends SequentialCommandGroup {
+public class ScoreManCmd extends SequentialCommandGroup {
   /** Creates a new Outtake. */
-  public ScoreAutoCmd(LauncherSubsystem launcherSubsystem, IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem) {
+  public ScoreManCmd(double launcherAngle, double launcherSpeed, LauncherSubsystem launcherSubsystem, IntakeSubsystem intakeSubsystem, LauncherRotateSubsystem launcherRotateSubsystem) {
     if(Robot.sensorOuttake.get() == true || Robot.sensorIntake.get() == true){
       addCommands(
-        new LauncherAimCMD(launcherRotateSubsystem),
-        new LauncherSpeedCmd(LauncherConstants.LauncherSpeedMult, launcherSubsystem),
+        new LauncherRotateCmd(launcherAngle, launcherRotateSubsystem),
+        new LauncherSpeedCmd(launcherSpeed, launcherSubsystem),
         new WaitUntilCommand(() -> launcherRotateSubsystem.launcherRotateComplete()).withTimeout(2),
         new WaitUntilCommand(() -> launcherSubsystem.launcherSpeedComplete()).withTimeout(1),
         new OuttakeCmd(intakeSubsystem)

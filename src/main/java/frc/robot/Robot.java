@@ -147,10 +147,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.setMotorBrake(true);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    new ClimberClimbCmd(climberSubsystem);
+    //new ClimberClimbCmd(climberSubsystem);
     aprilTagAlliance();
-
-    // schedule the autonomous command (example)
+    //m_robotContainer.lowerArms();
+    // schedule the autonomous co mmand (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -171,9 +171,9 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.setDriveMode();
     aprilTagAlliance();
-    RobotContainer.driverXbox.setRumble(RumbleType.kBothRumble, 0);
-    //m_robotContainer.setMotorBrake(true);
     
+
+    //RobotContainer.driverXbox.setRumble(RumbleType.kBothRumble, 0);
   }
 
   /** This function is called periodically during operator control. */
